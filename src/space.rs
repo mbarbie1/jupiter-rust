@@ -1,9 +1,7 @@
+extern crate piston_window;
+use piston_window::*;
 
-mod space {
-    extern crate piston_window;
-    use piston_window::*;
-
-    pub fn init_game() {
+pub fn init_game() {
         let mut window: PistonWindow =
             WindowSettings::new("Hello Piston!", [640, 480])
                 .exit_on_esc(true).build().unwrap();
@@ -17,4 +15,3 @@ mod space {
             });
         }
     }
-}
