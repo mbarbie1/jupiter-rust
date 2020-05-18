@@ -2,6 +2,7 @@ extern crate image as im;
 extern crate piston_window;
 extern crate find_folder;
 use piston_window::*;
+use self::im::DynamicImage;
 //use self::im::{ImageBuffer, GenericImage};
 
 /*
@@ -10,17 +11,6 @@ enum Ships {
     Lander(String),
 }
 
-fn get_sprite(file_name: String, folder_path: String) {
-    let assets = find_folder::Search::ParentsThenKids(3, 3)
-        .for_folder(folder_path).unwrap();
-    let sprite = assets.join(file_name);
-    let sprite: G2dTexture = Texture::from_path(
-        &mut window.create_texture_context(),
-        &rust_logo,
-        Flip::None,
-        &TextureSettings::new()
-    ).unwrap();
-}
 
 
 impl Ships {
@@ -62,10 +52,41 @@ impl ship {
 }
 */
 
-struct Planet {
+pub fn get_sprite(file_name: String, folder_path: String) -> DynamicImage {
+    print!("we are going to load an image!");
+    let img = im::open("/Users/mbarbier/Documents/prog/rust/jupiter/images/mercury_240.png").unwrap();
+    print!("DONE: load an image!");
+    return img;
+}
+/*
+pub fn get_sprite(file_name: String, folder_path: String) -> Image {
+
+    let assets = find_folder::Search::ParentsThenKids(3, 3)
+        .for_folder(folder_path.as_ref()).unwrap();
+    let sprite = assets.join(file_name);
+    let sprite: G2dTexture = Texture::from_path(
+        &mut window.create_texture_context(),
+        &rust_logo,
+        Flip::None,
+        &TextureSettings::new()
+    ).unwrap();
+    return sprite;
+}
+*/
+pub struct Planet {
     x: f64,
     y: f64,
-    sprite: Image,
+    sprite: DynamicImage,
+}
+
+impl Planet {
+    pub fn new(x: f64, y: f64, sprite: DynamicImage) -> Planet {
+        Planet {
+            x,
+            y,
+            sprite,
+        }
+    }
 }
 
 pub struct Game {
@@ -73,7 +94,7 @@ pub struct Game {
     pub height: u32,
     //pub ship: Ship,
     //pub window: PistonWindow,
-    //pub planet: Planet,
+    pub planet: Planet,
 }
 
 impl Game {
